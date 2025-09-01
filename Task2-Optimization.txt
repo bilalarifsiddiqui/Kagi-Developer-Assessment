@@ -1,0 +1,48 @@
+function court(yourName, judgesCount, otherPeople) {
+    console.time('benchmark'); // Start timing
+
+    const HEARING_TIME = 30; // Each hearing takes 30 minutes
+
+    // Combine your name with others and sort alphabetically
+    const peopleInOrder = [yourName, ...otherPeople.split(' ')].sort();
+
+    // Track when each judge will be free
+    const judgesNextFreeTime = Array(judgesCount).fill(0);
+
+    for (const person of peopleInOrder) {
+        // Find the judge who becomes free the earliest
+        const earliestTime = Math.min(...judgesNextFreeTime);
+        const judgeIndex = judgesNextFreeTime.findIndex(time => time === earliestTime);
+
+        // Schedule this person's hearing
+        judgesNextFreeTime[judgeIndex] += HEARING_TIME;
+
+        // If this is your hearing, return its end time immediately
+        if (person === yourName) {
+            console.timeEnd('benchmark'); // End timing
+            return judgesNextFreeTime[judgeIndex];
+        }
+    }
+}
+
+// Examples
+console.log(court("Jules", 3, "Adam Betty Frank Mite")); // 60
+console.log(court("Zane", 1, "Mark Hank Ana Vivian"));  // 150
+console.log(court("Bilal, "Mark Arif Zane Julie")); // 30
+console.log(court("Arif", 2, "Adam Betty Frank Jules")); // 30
+
+
+
+Optimization Summary:
+
+Sort once: Alphabetical order of names → O(n log n), negligible for small n.
+
+Track judges with an array: Each element = next available time.
+
+Assign to earliest free judge: Math.min + findIndex → fast and simple.
+
+Early exit: Stop once your hearing is scheduled → avoids unnecessary work.
+
+Minimal, readable code: Descriptive variable names and logical flow → human-friendly.
+
+Result: Fast, clear, and scales easily for any small number of people and judges.

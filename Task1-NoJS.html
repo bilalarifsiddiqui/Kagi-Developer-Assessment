@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>See More / See Less After Last Item</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        width: 30%;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    ul li {
+        padding: 5px 0;
+    }
+
+    ul li input[type="checkbox"] {
+        margin-right: 8px;
+    }
+
+    /* Hidden checkbox to control expansion */
+    input.expand-control {
+        display: none;
+    }
+
+    /* Expandable content */
+    .expandable-content {
+        max-height: 180px; /* initial height */
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    /* Expand content when checkbox is checked */
+    input.expand-control:checked ~ .expandable-content {
+        max-height: 1000px;
+    }
+
+    /* See more / See less button */
+    .expand-label {
+        margin-top: 10px;
+        cursor: pointer;
+        color: blue;
+        font-size: 14px;
+        user-select: none;
+        display: inline-block;
+    }
+
+    .expand-label::before {
+        content: "See more";
+    }
+
+    input.expand-control:checked + .expandable-content + .expand-label::before {
+        content: "See less";
+    }
+
+    @media (max-width: 900px) {
+        .card { width: 100%; }
+    }
+</style>
+</head>
+<body>
+
+<!-- List with more than 10 items -->
+<div class="card">
+    <h3>Recipe with 13 Ingredients</h3>
+    <input type="checkbox" id="expand-1" class="expand-control">
+    <ul class="expandable-content">
+        <li><input type="checkbox"> Ingredient 1</li>
+        <li><input type="checkbox"> Ingredient 2</li>
+        <li><input type="checkbox"> Ingredient 3</li>
+        <li><input type="checkbox"> Ingredient 4</li>
+        <li><input type="checkbox"> Ingredient 5</li>
+        <li><input type="checkbox"> Ingredient 6</li>
+        <li><input type="checkbox"> Ingredient 7</li>
+        <li><input type="checkbox"> Ingredient 8</li>
+        <li><input type="checkbox"> Ingredient 9</li>
+        <li><input type="checkbox"> Ingredient 10</li>
+        <li><input type="checkbox"> Ingredient 11</li>
+        <li><input type="checkbox"> Ingredient 12</li>
+        <li><input type="checkbox"> Ingredient 13</li>
+    </ul>
+    <!-- See more / See less toggle -->
+    <label for="expand-1" class="expand-label"></label>
+</div>
+
+<!-- List with less than 10 items -->
+<div class="card">
+    <h3>Recipe with 7 Ingredients</h3>
+    <ul class="expandable-content">
+        <li><input type="checkbox"> Ingredient 1</li>
+        <li><input type="checkbox"> Ingredient 2</li>
+        <li><input type="checkbox"> Ingredient 3</li>
+        <li><input type="checkbox"> Ingredient 4</li>
+        <li><input type="checkbox"> Ingredient 5</li>
+        <li><input type="checkbox"> Ingredient 6</li>
+        <li><input type="checkbox"> Ingredient 7</li>
+    </ul>
+    <!-- No toggle needed for short list -->
+</div>
+
+<!-- Paragraph with more than 15 lines -->
+<div class="card">
+    <h3>Long Paragraph</h3>
+    <input type="checkbox" id="expand-2" class="expand-control">
+    <p class="expandable-content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel felis et est vehicula sagittis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+        Curabitur vitae dolor non quam lacinia blandit. Vestibulum feugiat, orci nec facilisis venenatis, neque orci malesuada metus, vel dictum magna elit id lacus. Nulla facilisi. Sed porttitor libero sed eros consectetur, ut tincidunt arcu tincidunt.
+        Maecenas mollis quam vitae nisi sollicitudin, ut imperdiet ex pulvinar. Donec convallis lorem non sapien gravida, vel malesuada nisi ullamcorper. Quisque bibendum, lectus in tincidunt posuere, purus elit elementum ex, sit amet tincidunt orci arcu nec justo.
+        Aenean feugiat fermentum lorem, non dapibus urna dictum sed. Ut ut augue a nulla convallis lacinia. In sit amet nisi id urna fermentum commodo. Integer et libero vitae justo pulvinar sollicitudin. Proin euismod ligula vitae massa elementum, sed cursus nisi ultricies.
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Integer finibus justo non erat blandit, sed feugiat odio sollicitudin.
+    </p>
+    <label for="expand-2" class="expand-label"></label>
+</div>
+
+<!-- Short paragraph -->
+<div class="card">
+    <h3>Short Paragraph</h3>
+    <p class="expandable-content">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel felis et est vehicula sagittis.
+    </p>
+    <!-- No toggle needed for short paragraph -->
+</div>
+
+</body>
+</html>
